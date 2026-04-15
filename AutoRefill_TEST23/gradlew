@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+set -eu
+
+APP_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+GRADLE_VERSION="8.10.2"
+DIST_DIR="$APP_DIR/.gradle-dist/gradle-$GRADLE_VERSION"
+BIN="$DIST_DIR/bin/gradle"
+ZIP="$APP_DIR/.gradle-dist/gradle-$GRADLE_VERSION-bin.zip"
+URL="https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip"
+
+mkdir -p "$APP_DIR/.gradle-dist"
+
+if [ ! -x "$BIN" ]; then
+  echo "[TEST09] Local Gradle $GRADLE_VERSION not found. Downloading..."
+  if command -v curl >/dev/null 2>&1; then
+    curl -L "$URL" -o "$ZIP"
+  elif command -v wget >/dev/null 2>&1; then
+    wget -O "$ZIP" "$URL"
+  else
+    echo "curl か wget が必要です。" >&2
+    exit 1
+  fi
+  unzip -q -o "$ZIP" -d "$APP_DIR/.gradle-dist"
+fi
+
+exec "$BIN" "$@"

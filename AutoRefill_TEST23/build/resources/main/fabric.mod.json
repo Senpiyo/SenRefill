@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "autorefill",
+  "version": "0.0.23",
+  "name": "AutoRefill TEST23",
+  "description": "Client-side offhand refill connection test build. Detects offhand empty, searches exact-match inventory candidates, and attempts refill with logs.",
+  "authors": [
+    "OpenAI"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/autorefill/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.example.autorefill.AutoRefillClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.6",
+    "fabric-api": "*",
+    "minecraft": "~26.1.2",
+    "java": ">=25"
+  }
+}
